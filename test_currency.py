@@ -29,3 +29,17 @@ def test_add_rate(converter):
     # Verify it exists by converting USD to CAD
     assert converter.convert(100, "USD", "CAD") == 136.00
 
+def test_convert_to_nonexistant_currency(converter):
+    # Tests failure converting TO a currency that does not exist in the converter
+    result = converter.convert(100, "USD", "IND")
+    assert result == 100
+
+def test_convert_from_nonexistant_currency(converter):
+    # Tests failure converting FROM a currency that does not exist in the converter
+    result = converter.convert(100, "IND", "USD")
+    assert result == 100
+
+def test_convert_negative_amount(converter):
+    # Tests failure converting a negative amount of money
+    result = converter.convert(-100, "USD", "GBP")
+    assert result == -100
